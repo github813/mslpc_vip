@@ -1,0 +1,55 @@
+
+<div>
+  <div  class="address"><span class="e85529">*</span>发货单位：{{data?.company}}</div>
+  <div  class="address"><span class="e85529">*</span>详细地址：{{data?.address}}</div>
+  <div  class="address"><span class="e85529">*</span>地址：{{data?.province+data?.city+data?.county+data?.town+data?.street}}</div>
+  <div  class="address last"><span class="e85529">*</span>是否设置默认地址：{{data?.def==1?"是":"否"}}</div>
+</div>
+<div class="layui-form">
+  <table class=" table table-bordered viptable"  >
+    <colgroup>
+      <col width="150">
+      <col width="150">
+      <col width="150">
+    </colgroup>
+    <tr>
+      <td colspan='3' class="titleMessage">
+        联系人信息
+      </td>
+    </tr>
+    <tr>
+      <td>姓名</td>
+      <td>电话号</td>
+      <td>是否为主联系人</td>
+    </tr>
+    <tr *ngFor="let da of ContactPerson" class="titleTr1">
+      <td>{{da?.name}}</td>
+      <td>{{da?.phone}}</td>
+      <td>{{da?.main==1?"是":"否"}}</td>
+    </tr>
+  </table>
+</div>
+<div class="layui-form" *ngIf="type==2">
+  <table class=" table table-bordered viptable" >
+    <colgroup>
+      <col width="150">
+      <col width="150">
+    </colgroup>
+    <tr>
+      <td colspan='2' class="titleMessage">
+        质检员信息
+      </td>
+    </tr>
+    <tr class="titleTr">
+      <td>姓名</td>
+      <td>电话号</td>
+    </tr>
+    <tr *ngFor="let da of QueryData" class="titleTr1">
+      <td>{{da?.name}}</td>
+      <td>{{da?.phone}}</td>
+    </tr>
+  </table>
+</div>
+<div class="mapbtns">
+  <span class="btn btn-default" routerLink="../">返回</span>
+</div>

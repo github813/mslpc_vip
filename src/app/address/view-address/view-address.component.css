@@ -1,0 +1,28 @@
+.right-top {
+  height: 70px;
+  border-bottom: 1px solid #cccccc;
+  line-height: 70px;
+}
+.right-bottom {
+    width: 98%;
+    float: left;
+    height: 84%;
+    border: 1px solid #cccccc;
+    margin: 15px 0 10px 10px;
+    overflow-y: scroll;
+}
+.address {
+    margin-top: 20px;
+}
+.last {
+    margin-bottom: 20px;
+}
+.layui-table {
+    width: 920px;
+    margin-left: 15px;
+}
+.titleMessage {
+    background-color:#f3f6f8;
+}
+.e85529{color: #e85529;}
+.layui-form{width: 50%; }

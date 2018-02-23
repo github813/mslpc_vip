@@ -1,0 +1,59 @@
+<div class="box">
+
+  <div class="header ">
+    <div class="cont">
+      <div class="logo">
+        <img src="../../assets/images/logo.png" height="50">
+      </div>
+      <div class="name">
+        {{name}}, 欢迎登录马上来VIP，<a (click)="logout()">退出登录</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="content">
+    <div class="nav_left fonticon" >
+      <ul>
+        <li class="active" (click)="home()">
+          <i class="icon iconfont icon-ziyuan"></i>
+          <div class="name">首 页</div>
+        </li>
+        <li routerLink="../content/ordertemplate">
+          <i class="icon iconfont icon-daifahuo"></i>
+          <div class="name">发 货</div>
+        </li>
+        <li (click)="goodsManagement()">
+          <i class="icon iconfont icon-sanjicaidan"></i>
+          <div class="name">货源列表</div>
+        </li>
+        <li routerLink="../content/goodstype">
+          <i class="icon iconfont icon-leibieguanli"></i>
+          <div class="name">品类管理</div>
+        </li>
+        <li routerLink="../content/broker">
+          <i class="icon iconfont icon-xiaoxi"></i>
+          <div class="name">信息部管理</div>
+        </li>
+        <li routerLink="../content/address">
+          <i class="icon iconfont icon-dizhi"></i>
+          <div class="name">地址管理</div>
+        </li>
+        <li  (click)="infoStatistical()">
+          <i class="icon iconfont icon-shujutongjixinhao"></i>
+          <div class="name">信息统计</div>
+        </li>
+      </ul>
+    </div>
+    <div class="cont_right">
+      <div class="right_cont">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span>关于马上来</span>|
+    <span>使用协议</span>|
+    <span>服务协议</span>|
+    <span>Powered By Chenglianxin  Copyright @ {{years}} All Rights Reserved</span>
+  </div>
+</div>

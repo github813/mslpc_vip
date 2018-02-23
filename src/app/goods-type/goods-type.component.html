@@ -1,0 +1,35 @@
+
+
+<table class="search" style="color: #fff;">
+  <tr>
+    <td>
+      <button class="btn btn_success" (click)="addgoodstype()" >新 增</button>
+    </td>
+  </tr>
+</table>
+
+<table class="table table-bordered viptable" style="width: 600px;">
+<thead>
+<tr>
+  <th width="100">序号</th>
+  <th>名称</th>
+  <th width="150">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let goodstype of goodsTypelist; let i=index">
+  <td>{{(pageNum-1)*10+i+1}}</td>
+  <td>{{goodstype?.name}}</td>
+  <td>
+    <button type="button" class="btn btn-link viplink" *ngIf="goodstype?.status==1" (click)="updatastatus(goodstype?.id,1)">禁用</button>
+    <button type="button" class="btn btn-link viplink" *ngIf="goodstype?.status==0" (click)="updatastatus(goodstype?.id,0)">启用</button>
+    <button type="button" class="btn btn-link viplink" (click)="del(goodstype?.id)">删除</button>
+  </td>
+</tr>
+<tr>
+  <td  colspan="3">
+    <app-pagination [pageSize]="10" [totalNum]="totalNum" (pageChange)="changePageNum($event)"></app-pagination>
+  </td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,128 @@
+<div class="wrap">
+
+<form>
+  <table class="search">
+    <tr>
+      <td>开始时间：
+        <input name="startTime" type="text" readonly="readonly" class=" form-control date" id="startTime">
+      </td>
+      <td>
+        结束时间：
+        <input name="endTime" type="text" readonly="readonly" class=" form-control date" id="endTime">
+      </td>
+      <td>信息部：
+        <!-- <input ngModel name="brokerId" id="brokerId" type="text"> -->
+        <select  name="brokerId" id="brokerId" class="form-control">
+          <option value="">---请选择---</option>
+          <option *ngFor = "let brokerAll of brokerAll"  value="{{brokerAll?.brokeId}}">{{brokerAll?.brokerName}}</option>
+        </select>
+      </td>
+      <td rowspan="2">
+        <button class="btn btn_success" (click)="search()">查&nbsp;询</button>
+      </td>
+      </tr>
+    <tr>
+      <td>发货地址：
+        <!-- <input ngModel name="receiveId" id="receiveId" type="text"> -->
+        <select  name="sendId" id="sendId" class="form-control">
+          <option  value="">---请选择---</option>
+          <option *ngFor="let user of addressList" value="{{user?.id}}">{{user?.address}}</option>
+        </select>
+      </td>
+      <td>收货地址：
+        <!-- <input ngModel name="sendId" id="sendId" type="text"> -->
+        <select  name="receiveId" id="receiveId" class="form-control">
+          <option  value="">---请选择---</option>
+          <option *ngFor="let info of recaddressList" value="{{info?.id}}">{{info?.address}}</option>
+        </select>
+      </td>
+
+      <td>品&nbsp;&nbsp;&nbsp;类&nbsp;：
+        <!-- <input ngModel name="goodsTypeId" id="goodsTypeId" type="text"> -->
+        <select name="goodsTypeId" id="goodsTypeId" class="form-control">
+          <option value="">---请选择---</option>
+          <option *ngFor="let goodsType of goodsTypelist" value="{{goodsType?.id}}">{{goodsType?.name}}</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</form>
+  <table class="table table-bordered viptable">
+    <thead>
+      <tr>
+        <th>单号</th>
+        <th>货物品类</th>
+        <th>运费单价</th>
+        <th>发货地址</th>
+        <th>收货地址</th>
+        <th>货单状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of data">
+        <td>{{data?.templateNo}}</td>
+        <td>{{data?.goodsType}}</td>
+        <td>{{data?.freightPrice.toFixed(2)}}</td>
+        <td>{{data?.sendAddress}}</td>
+        <td>{{data?.receiveAddress}}</td>
+        <td>{{getStatus(data?.orderStatus)}}</td>
+        <td><a (click)='goodsInfo(data?.templateNo)'>查看</a>&nbsp;&nbsp;<a class="cancel" *ngIf='data?.orderStatus==1' (click)="showBg(data?.templateNo)">取消</a></td>
+      </tr>
+      <tr>
+        <td colspan="7">
+          <app-pagination [pageSize]="10" [totalNum]="totalNum" (pageChange)="changePageNum($event)"></app-pagination>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 取消弹框 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog min-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#ebebeb">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <strong class="modal-title" id="myModalLabel">
+          提示信息
+        </strong>
+      </div>
+      <div class="modal-body minContent">
+        <ul id="myTab" class="nav nav-tabs">
+          <li class="active">
+            <a href="#home" data-toggle="tab" (click)="searchAll()">
+              取消全部
+            </a>
+          </li>
+          <li>
+            <a href="#ios" data-toggle="tab" (click)="searchBroker()">取消部分</a>
+          </li>
+        </ul>
+        <div id="myTabContent" class="tab-content" style="display: inline-block" >
+          <div class="tab-pane fade in active" id="home">
+            <h2>取消全部信息部货源</h2><br>
+
+          </div>
+          <div class="tab-pane fade" id="ios">
+           <ul>
+            <li style="float:left" *ngFor="let broker of brokers;let i=index">
+               <span class='radio'>
+                 <input type="radio" id={{i}} value="check" name="radioName" (click)="checkBroker(broker.brokerId,broker.brokerName)">
+                 <label for={{i}}>{{broker.brokerName}}</label>
+               </span>
+            </li>
+           </ul><br>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" *ngIf="num==1" class="btn btn_success" data-dismiss="modal" aria-hidden="true" (click)="cancel(1)">取消全部</button>
+        <button type="button" *ngIf="num==2" class="btn btn_success" data-dismiss="modal" aria-hidden="true" (click)="cancel(2)">取消部分</button>
+      </div>
+    </div>
+  </div>
+</div>

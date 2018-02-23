@@ -1,0 +1,72 @@
+<div class="wrap">
+    <table class="search">
+      <tr>
+        <td>开始时间：
+          <input name="startTime" type="text" readonly="readonly" class="form-control date" id="startTime">
+
+        </td>
+        <td>结束时间：
+            <input name="endTime" type="text" readonly="readonly" id="endTime" class="form-control date">
+        </td>
+        <td>信息部：
+        <select name="brokerId" id="brokerId" class="form-control">
+          <option value="">---请选择---</option>
+          <option *ngFor="let brokerAll of brokerAll" value="{{brokerAll?.brokeId}}">{{brokerAll.brokerName}}</option>
+        </select>
+        </td>
+        <td rowspan="2"><button class="btn  btn_success" (click)="search()">查&nbsp;询</button></td>
+        <td rowspan="2">
+          <button class="btn  btn_success" (click)="excel()">导出表格</button>
+        </td>
+      </tr>
+      <tr>
+          <td>发货地址：
+            <select name="sendId" id="sendId"  class="form-control">
+              <option value="">---请选择---</option>
+              <option *ngFor="let user of addressList" value="{{user?.id}}">{{user?.address}}</option>
+            </select>
+          </td>
+          <td>收货地址：
+            <select name="receiveId" id="receiveId"  class="form-control">
+              <option value="">---请选择---</option>
+              <option *ngFor="let info of recaddressList" value="{{info?.id}}">{{info?.address}}</option>
+            </select>
+          </td>
+
+          <td>品&nbsp;&nbsp;类&nbsp;：
+            <select name="goodsTypeId" id="goodsTypeId"  class="form-control">
+              <option value="">---请选择---</option>
+              <option *ngFor="let goodsType of goodsTypelist" value="{{goodsType?.id}}">{{goodsType?.name}}</option>
+            </select>
+          </td>
+      </tr>
+    </table>
+  <table class="table table-bordered viptable">
+    <thead>
+      <tr>
+        <th>信息部名称</th>
+        <th>订单数</th>
+        <th>货物总量</th>
+        <th>总运费</th>
+        <th>已支付运费</th>
+        <th>取消单数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of data">
+        <td>{{data?.brokerName}}</td>
+        <td>{{data?.normalCount}}</td>
+        <td>{{data?.capacityTotal.toFixed(2)}}</td>
+        <td>{{data?.freightTotal.toFixed(2)}}</td>
+        <td>{{data?.actualExpenditure.toFixed(2)}}</td>
+        <td>{{data?.canceledCount}}</td>
+      </tr>
+
+      <tr>
+        <td  colspan="6">
+        <app-pagination [pageSize]="10" [totalNum]="totalNum" (pageChange)="changePageNum($event)"></app-pagination>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

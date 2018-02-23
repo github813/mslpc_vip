@@ -1,0 +1,18 @@
+.fhcon{ margin-bottom: 20px; border:1px solid #e0e6ea;}
+.fhtitle{height: 45px; line-height: 45px; background: #f3f6f8; padding-left: 20px;border-bottom:1px solid #e0e6ea;}
+.fhcon .cont{padding: 20px; }
+.fhcon ul li{width: 24%; display: inline-block; margin-bottom: 10px; }
+.form-control{width:50%; display: inline-block;}
+.color_e5,.fhcon ul li i{color: #ea5529;}
+.map{ border: 1px solid #e0e6ea;   background: url("../../assets/images/address_bottom.png") no-repeat bottom;
+  width: 50%;  padding: 1rem 2rem;  min-height: 12rem;  background-size: 100%;  position: relative;}
+.noselect{width: 100%; text-align: center;  position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
+a{color: blue;}
+.map p{ display: block; margin-bottom: 3px !important;}
+.map p:first-child{font-weight: 600;}
+.map p.brokercon{font-weight: normal; min-height: 7.5rem;}
+.map span{ margin-right: 10px;}
+.addre_edittxt{  text-align: right; color: blue;}
+table tr td{font-size: 12px;}
+.checkbox, .radio{margin-top: 0;margin-bottom: 0;}
+.modal-body{max-height: 500px; overflow-y: auto;}

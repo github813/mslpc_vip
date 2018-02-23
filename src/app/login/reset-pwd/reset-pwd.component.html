@@ -1,0 +1,47 @@
+<div class="login_wrap">
+
+  <div class="login">
+    <div class="logn">
+      <div style="font-size: 30px">找回密码</div>
+    </div>
+    <form [formGroup]="formModel" class="form-horizontal login_form">
+      <div *ngIf="!resetresult">
+        <div class="form-group">
+          <div class="col-sm-12">
+            <div class="icon"><img src="../assets/images/login_zh.png"></div>
+            <input  id ="tel" type="tel" class="form-control hasicon"   name="phone"  formControlName="mobile"    placeholder="请输入手机号码" maxlength="11" autocomplete="off" >
+          </div>
+        </div>
+        <div class="form-group ">
+          <div class="col-sm-12">
+            <div class="icon"><img src="../assets/images/login_mm.png" > </div>
+            <input id="pwd"  type="password" class="form-control hasicon"   name="password"  formControlName="pwd"   maxlength="12" placeholder="请输入6-12位数字或字母密码" autocomplete="off"/>
+          </div>
+        </div>
+        <div class="form-group ">
+          <div class="col-sm-12">
+            <div class="icon"><img src="../assets/images/login_mm.png" > </div>
+            <input id="retpwd"  type="password" class="form-control hasicon"  name="password" formControlName="refpwd"  maxlength="12" placeholder="再次输入密码" autocomplete="off"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-5">
+            <input type="text" class="form-control"  type="tel"  name="captcha" id="captcha" formControlName="captcha"   placeholder="请输入验证码" maxlength="4"/>
+          </div>
+          <div class="col-sm-7 logina" [ngStyle]="{'color': iscanclick?'#e85529':'#ff9966'}"   (click)="captchaReg()">{{yzm }}</div>
+
+        </div>
+      </div>
+      <div *ngIf="resetresult" style="height: 260px">
+        <div  class="resetresult">恭喜您找回密码成功</div>
+      </div>
+      <div class="box-footer">
+        <input type="button" value={{btntxt}} (click)="submitForm()"  class="btn   btn_sumbit" />
+        <div class="goback" *ngIf="!resetresult" routerLink="../login" >返 回 登 录</div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+

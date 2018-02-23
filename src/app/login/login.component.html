@@ -1,0 +1,41 @@
+<div class="login_wrap">
+
+  <div class="login">
+    <div class="logn">
+      <img src="../../assets/images/logo_login.png" width="300">
+    </div>
+    <form #myForm="ngForm" class="form-horizontal login_form">
+      <div class="form-group">
+        <div class="col-sm-12">
+          <div class="icon"><img src="../assets/images/login_zh.png"></div>
+          <input  id ="tel" type="tel" class="form-control hasicon"  onkeyup="value=value.replace(/[^\d]/g,'') "  ngModel name="phone" placeholder="请输入手机号码" maxlength="11" autocomplete="off" >
+        </div>
+      </div>
+      <div class="form-group ">
+        <div class="col-sm-12">
+          <div class="icon"><img src="../assets/images/login_mm.png" > </div>
+
+          <input id="pwd"  type="password" class="form-control hasicon" ngModel name="password" maxlength="12" placeholder="请输入6-12位数字或字母密码" autocomplete="off"/>
+          <!--<img class="watch" src="{{imgSrc}}" (click)="changeImg()" class="icon" width="28">-->
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-5">
+          <input type="text" class="form-control" ngModel  type="tel"  name="yzm1" id="yzm1" placeholder="请输入验证码" maxlength="4"/>
+        </div>
+        <div class="col-sm-7 logina" *ngIf="!isgetcaptchaUrl"   (click)="getcaptchaImg(myForm.value)">点击获取验证码</div>
+        <div  class="col-sm-7 logina"  *ngIf="isgetcaptchaUrl">
+          <span ><img src={{captchaUrl}} height="40"></span>
+          <span (click)="getcaptchaImg(myForm.value)" >换一张</span>
+        </div>
+      </div>
+      <div class="box-footer">
+        <input type="submit" value="登 录" (click)="login(myForm.value)"  class="btn   btn_sumbit" />
+
+      </div>
+      <div class="resetpwd"  routerLink="../resetpwd" >忘记密码？</div>
+    </form>
+
+  </div>
+</div>
+

@@ -1,0 +1,6 @@
+<div class="wrapper">
+<router-outlet></router-outlet>
+</div>
+<div class="toastMessage fade" *ngIf="toast.isShow"  [class.in]="toast.isIn">
+  <span class="msg">{{toast.msg}}</span>
+</div>

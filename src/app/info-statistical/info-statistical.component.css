@@ -1,0 +1,14 @@
+.wrap {
+    margin:10px 10px;
+}
+.search {
+    margin-bottom: 10px;
+}
+tr>td {
+    margin-right: 20px;
+    width: 300px;
+    height: 30px;
+}
+tr>td>select,tr>td>input {
+  width: 70%; display: inline-block; margin-bottom: 5px;
+}

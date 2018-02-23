@@ -1,0 +1,15 @@
+input{
+    height: 28px;
+}
+
+.pagination>li>a.active{
+    background: #eb5529;
+    color: #fff;
+  }
+.pagination>li>a, .pagination>li>span{
+  color: #000;
+}
+.btn-info{
+  border-color:#eb5529 ;
+  background-color: #eb5529;
+}

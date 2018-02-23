@@ -1,0 +1,55 @@
+<ul class="nav nav-tabs"  >
+  <li  [class.active]="type==1" (click)="tabnav(1)"><a>发货地址</a></li>
+  <li [class.active]="type==2" (click)="tabnav(2)"><a>收货地址</a></li>
+
+</ul>
+
+<div class="tab-content mtop10 ">
+  <div class="tab-pane active" id="home">
+    <table class="search "  >
+      <tr>
+        <td>
+          <button class="btn btn_success" (click)="addressAdd()" >新 增</button>
+        </td>
+      </tr>
+    </table>
+    <table class="table table-bordered viptable " >
+      <thead>
+      <tr>
+        <th>序列号</th>
+        <th>发货单位</th>
+        <th>发货人</th>
+        <th>联系电话</th>
+        <th>详细地址</th>
+        <th>是否默认</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of addressList;let i=index">
+        <td style=" width: 80px; ">{{i+1}}</td>
+        <td>{{user?.company}}</td>
+        <td>
+          <!--<input type="radio" name="address" (click)='setDefaultAddress($event.target.id)' id="{{user?.id}}" [checked]='user?.def===1'>-->
+          {{user?.name}}
+        </td>
+
+        <td style="width:100px; ">{{user?.phone}}</td>
+        <td  >{{user?.address}}</td>
+        <td style=" width: 100px;"  >
+          <span *ngIf="user?.def==0">否</span>
+          <span *ngIf="user?.def==1">是</span>
+        </td>
+        <td style=" width: 260px;">
+          <span *ngIf="user?.def==0" class="btn btn-link viplink" (click)='comfirm(2,i)'>设为默认</span>
+          <span (click)='viewAddress(user?.id)' class="btn btn-link viplink ">查看</span>
+          <span (click)='edit(i)' class="btn btn-link viplink ">编辑</span>
+          <span (click)='comfirm(1,i)' class="btn btn-link viplink">删除</span></td>
+      </tr>
+
+
+      </tbody>
+    </table>
+  </div>
+
+</div>

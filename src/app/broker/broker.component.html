@@ -1,0 +1,36 @@
+
+
+<table class="search" style="color: #fff;">
+  <tr>
+    <td>
+      <button class="btn btn_success" (click)="addbroker()" >新 增</button>
+    </td>
+  </tr>
+</table>
+
+<table class="table table-bordered viptable" style="width: 80%;">
+  <thead>
+  <tr>
+    <th width="100">序号</th>
+    <th>联系电话</th>
+    <th>姓名</th>
+
+    <th width="150">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let broker of brokers; let i=index">
+    <td>{{(pageNum-1)*10+i+1}}</td>
+    <td>{{broker?.brokerMobile}}</td>
+    <td>{{broker?.brokerName}}</td>
+    <td>
+      <button type="button" class="btn btn-link viplink" (click)="del(broker?.id)">删除</button>
+    </td>
+  </tr>
+  <tr>
+    <td  colspan="5">
+      <app-pagination [pageSize]="10" [totalNum]="totalNum" (pageChange)="changePageNum($event)"></app-pagination>
+    </td>
+  </tr>
+  </tbody>
+</table>

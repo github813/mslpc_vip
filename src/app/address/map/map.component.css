@@ -1,0 +1,47 @@
+
+
+.add_addrecon{ float:left;width:100%;margin-bottom:10px;}
+ul li a,.color_red {
+  color: #e85529;
+}
+.add_addrecon ul li{ width: 50%; float: left;   margin-top: 10px;}
+.add_addrecon ul li label{ font-weight: normal; }
+
+ul li input,.add_addrecon ul li select,.input_css {
+  display: inline-block;
+  width: 76%;
+  padding: 0 1%;
+}
+.add_addrecon ul li select{width:65%;}
+.add_addrecon ul li select.width200{width: 200px;}
+
+#tip {
+  background-color: #ddf;
+  color: #333;
+  border: 1px solid silver;
+  box-shadow: 3px 4px 3px 0px silver;
+  position: absolute;
+  top: 50px;
+  right: 60px;
+  border-radius: 5px;
+  overflow: hidden;
+  line-height: 20px;
+}
+#tip input[type="text"] {
+  padding-left: 5px;
+  width: 200px;
+}
+.map_region{ background: rgba(255,255,255,.7); padding: 10px; position: absolute; top: 40px;left: 70px;}
+.map_region .input_css{width:120px;}
+.map_address{margin-bottom: 10px; display: block; text-align: left; }
+
+
+.clo-6{ width: 50%; float: left;}
+.tablecss{  width: 90%;margin-top: 0; }
+.tablecss.layui-table td, .tablecss.layui-table th{padding: 9px 5px;}
+.table_title{ width: 90%;padding: 9px 15px;   background: #e4e4e4; color: #000; line-height: 20px; font-size: 14px; }
+.viptable{width: 90%; text-align: center;}
+.floatr{float: right;} .mleft5{ margin-left: 5px;}
+a{cursor: pointer;} a:hover{color: blue;}
+.inputDiv label{ width: 80px;} .inputDiv .form-control{ width: 200px; display: inline-block}
+.map_region .form-control{ width: 100px; display: inline-block}

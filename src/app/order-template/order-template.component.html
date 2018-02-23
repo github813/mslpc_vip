@@ -1,0 +1,164 @@
+
+<div class="fhcon">
+  <div class="fhtitle"><span class="color_e5">*</span>货源信息</div>
+  <form class="cont">
+    <ul>
+      <li><i>*</i>品类名称：
+        <select ngModel name="goodsTypeId" required type="text" class="form-control"  >
+          <option value="">请选择品类</option>
+          <option *ngFor="let goodstype of goodstypelist" value="{{goodstype?.id}}">{{goodstype?.name}}</option>
+        </select>
+      </li>
+      <li><i>*</i>货物运费：<input ngModel name="freightPrice" required type="text" class="form-control freightPrice" onkeyup='this.value=this.value.replace(/[^0-9.]/g,"")'  /> 元/吨 </li>
+      <li><i>*</i>最晚接单时间：<input ngModel name="endTime" type="text" readonly="readonly"    required  class="form-control date" /> </li>
+      <li><i>*</i>最晚装货时间：<input ngModel name="latestArrivalTime" type="text" readonly="readonly"    required class="form-control date" /> </li>
+    </ul>
+    <div>备注:<br/>
+      <textarea class="form-control remark" name="remark"   placeholder="最多可输入200个字"></textarea>
+    </div>
+  </form>
+</div>
+<div class="fhcon">
+  <div class="fhtitle"><span class="color_e5">*</span>发货地址</div>
+  <div class="cont">
+    <div class="map">
+      <div   *ngFor="let item of sendAddress"  class="mapcon">
+
+        <p >{{item.province}} {{item.city}}（{{item.name}} 发）</p>
+        <p>{{item.company}}</p>
+        <p>{{item.province}} {{item.city}} {{item.county}} {{item.town}} {{item.street}} {{item.address}}</p>
+        <p>{{item.phone}}</p>
+        <p (click)='addressFindList(1)' data-toggle="modal" data-target="#myModal" class="addre_edittxt"><a>修改发货信息</a></p>
+      </div>
+      <a class="noselect" (click)='addressFindList(1)'  data-toggle="modal" data-target="#myModal"  *ngIf="sendAddress.length==0&&sendAddresslist.length>0">选择发货地址</a>
+      <a class="noselect" (click)="gotoadd(1)"  *ngIf="sendAddress.length==0&&sendAddresslist.length==0">添加发货地址</a>
+    </div>
+  </div>
+</div>
+<div class="fhcon">
+  <div class="fhtitle"><span class="color_e5">*</span>收货地址</div>
+  <div class="cont">
+    <div class="map">
+      <div *ngFor="let item of receiveAddress" >
+        <!-- *ngFor="let item of receivelist"  -->
+        <!-- <span (click)='add()' style="text-align: center;line-height: 9rem;color: #0a01ff;cursor: pointer;">添加收货信息</span> -->
+        <p>{{item.province}} {{item.city}}（{{item.name}} 收）</p>
+        <p>{{item.company}}</p>
+        <p>{{item.province}} {{item.city}} {{item.county}} {{item.town}} {{item.street}} {{item.address}}</p>
+        <p>{{item.phone}}</p>
+        <p (click)='addressFindList(2)' data-toggle="modal" data-target="#myModal" class="addre_edittxt"><a>修改收货信息</a></p>
+      </div>
+      <a class="noselect" (click)='addressFindList(2)' data-toggle="modal" data-target="#myModal" *ngIf="receiveAddress.length==0&&receiveAddresslist.length>0">选择收货地址</a>
+      <a class="noselect" (click)="gotoadd(2)"  *ngIf="receiveAddress.length==0&&receiveAddresslist.length==0">添加收货地址</a>
+
+    </div>
+  </div>
+</div>
+<div class="fhcon">
+  <div class="fhtitle" ><span class="color_e5">*</span>选择信息部</div>
+  <div class="cont">
+    <div class="map">
+      <p class="brokercon " >
+        <span *ngFor="let broker of BrokerDTOList">
+          {{broker?.brokerName}}({{broker?.brokerMobile}})
+        </span>
+      </p>
+      <a class="noselect" *ngIf="BrokerDTOList.length==0&&brokerslist.length>0"  (click)="selectroker()"  data-toggle="modal" data-target="#brokerModal">选择信息部</a>
+      <p  *ngIf="BrokerDTOList.length>0&&brokerslist.length>0" data-toggle="modal" (click)="selectroker()" data-target="#brokerModal"class="addre_edittxt"><a>选择信息部</a></p>
+      <a class="noselect" (click)="gotoadd(3)"  *ngIf="BrokerDTOList.length==0&&brokerslist.length==0">添加信息部</a>
+
+
+    </div>
+  </div>
+</div>
+<div class="mapbtns">
+  <span class="btn btn_success" (click)="sumbitorder()">提 交</span>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width: 700px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          请选择地址信息   <span style="color:red;">（添加新地址请点击"地址管理"中添加）</span>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered viptable" id="table">
+          <thead>
+          <tr>
+            <th style=" width: 80px; ">序列号</th>
+            <th style=" width: 120px; ">收货单位</th>
+            <th style=" width: 100px; ">收货人</th>
+            <th style=" width: 80px; ">联系电话</th>
+            <th style=" width: 120px; ">详细地址</th>
+            <th style=" width: 100px; ">是否默认</th>
+            <th style=" width: 80px; ">选择</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of addressList;let i=index">
+            <td >{{i+1}}</td>
+            <td>{{user?.company}}</td>
+            <td>
+              <!--<input type="radio" name="address" (click)='setDefaultAddress($event.target.id)' id="{{user?.id}}" [checked]='user?.def===1'>-->
+              {{user?.name}}
+            </td>
+
+            <td>{{user?.phone}}</td>
+            <td>{{user?.address}}</td>
+            <td>{{user?.def==1?"是":"否"}}</td>
+            <td><div class="radio" ><input  [value]=user?.id name="radioName" type="radio" (click)="checkaddre(i)"  /><label></label></div></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="brokerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width: 700px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" >
+          请选择信息部
+        </h4>
+      </div>
+      <div class="modal-body">
+
+        <table class="table table-bordered viptable">
+          <thead>
+          <tr>
+            <th width="100">序号</th>
+            <th>联系电话</th>
+            <th>姓名</th>
+
+            <th width="150">操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let broker of brokerslist; let i=index">
+            <td>{{i+1}}</td>
+            <td>{{broker?.brokerMobile}}</td>
+            <td>{{broker?.brokerName}}</td>
+            <td >
+              <div class="checkbox"  ><input   [value]=i  type="checkbox"  /><label></label></div>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+        <button type="button" class="btn btn_success" data-dismiss="modal" aria-hidden="true" (click)="sumbitbroker()" >确 认</button>
+
+      </div>
+    </div>
+  </div>
+</div>

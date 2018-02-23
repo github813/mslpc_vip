@@ -1,0 +1,67 @@
+<div class="wrap">
+
+  <!-- <form>
+    <table class="search">
+      <tr>
+        <td>开始时间：
+          <input ngModel name="startTime" type="text" readonly="readonly" id="startTime">
+        </td>
+        <td>
+          结束时间：
+          <input ngModel name="endTime" type="text" readonly="readonly" id="endTime">
+        </td>
+        <td>信息部：
+          <input ngModel name="brokerId" id="brokerId" type="text">
+        </td>
+
+      </tr>
+      <tr>
+        <td>收货地址：
+          <input ngModel name="sendId" id="sendId" type="text">
+        </td>
+        <td>发货地址：
+          <input ngModel name="receiveId" id="receiveId" type="text">
+        </td>
+        <td>品&nbsp;&nbsp;类&nbsp;：
+          <input ngModel name="goodsTypeId" id="goodsTypeId" type="text">
+        </td>
+        <td>
+          <button class="btn btn_success" (click)="search()">查&nbsp;询</button>
+        </td>
+      </tr>
+    </table>
+  </form> -->
+  <table class="table table-bordered viptable">
+    <thead>
+      <tr>
+        <th>单号</th>
+        <th>货物品类</th>
+        <th>信息部</th>
+        <th>运费单价</th>
+        <th>发货地址</th>
+        <th>收货地址</th>
+        <th>货单状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of data">
+        <td>{{data?.orderNo}}</td>
+        <td>{{data?.goodsName}}</td>
+        <td>{{data?.name}}</td>
+        <td>{{data?.freightPrice.toFixed(2)}}</td>
+        <td>{{data?.sendAddress}}</td>
+        <td>{{data?.receiveAddress}}</td>
+        <td>{{getOrderStatus(data?.orderStatus)}}</td>
+        <td>
+          <a (click)="driverInfo(data?.orderNo)">查看</a>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="8">
+          <app-pagination [pageSize]="10" [totalNum]="totalNum" (pageChange)="changePageNum($event)"></app-pagination>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,99 @@
+<table class="search">
+  <!-- <tr>
+    <td>接单编号：
+      <input name="childNo" id="childNo" type="text">
+    </td>
+    <td>车牌号：
+      <input name="truckNo" id="truckNo" type="text">
+    </td>
+    <td rowspan="2">
+      <button class="btn btn_success" (click)="finds()">查&nbsp;询</button>
+    </td>
+    </tr> -->
+    <tr>
+    <td>开始时间：
+      <input name="startTime" type="text" readonly="readonly" id="startTime" class="form-control date">
+    </td>
+    <td>结束时间：
+      <input name="endTime" type="text" readonly="readonly" id="endTime" class="form-control date">
+    </td>
+    <td>
+      <button class="btn btn_success" (click)="finds()">查&nbsp;询</button>
+    </td>
+  </tr>
+</table>
+<div *ngIf="totalNum!=0">
+  <table class="table table-bordered viptable">
+    <colgroup>
+      <col width="150">
+      <col width="150">
+      <col width="150">
+      <col width="150">
+      <col width="150">
+      <col width="100">
+      <col width="100">
+      <col width="100">
+    </colgroup>
+    <tr style="background-color:#f3f6f8">
+      <th>接单编号</th>
+      <th>货物运费</th>
+      <th>发货地址</th>
+      <th>收货地址</th>
+      <th>车牌号</th>
+			<th>司机</th>
+      <!-- <th>担保状态</th> -->
+      <th>交易状态</th>
+			<th>货单状态</th>
+    </tr>
+		<tr *ngFor="let data of datas">
+			<td>{{data?.childNo}}</td>
+			<td>{{data.freightPrice.toFixed(2) }}元/吨</td>
+      <td>{{data?.sendAddress}}</td>
+      <td><span *ngIf="data.orderType==1">{{data?.receiveAddress}}</span><span *ngIf="data.orderType==2">无</span></td>
+      <td>{{data?.truckNo}}</td>
+      <td>{{data?.driverName}}</td>
+			<!-- <td>{{data?.insuranceFee==0||data?.insuranceFee==null?"未担保":"已担保"}}</td> -->
+			<td>
+				<span *ngIf="data?.status==150||data?.status==151||data?.status==102">已支付</span>
+        <span *ngIf="data?.status!=150&&data?.status!=151&&data?.status!=102">未支付</span>
+			</td>
+			<td>
+        <span *ngIf="data?.status==1">新创建</span>
+        <span *ngIf="data?.status==2">接单成功</span>
+        <span *ngIf="data?.status==3">前往货源地</span>
+        <span *ngIf="data?.status==4">到达货源地</span>
+        <span *ngIf="data?.status==50">货主确认车辆</span>
+        <span *ngIf="data?.status==51">货主装车</span>
+        <span *ngIf="data?.status==52">司机确认装车</span>
+        <span *ngIf="data?.status==53">前往目的地</span>
+        <span *ngIf="data?.status==54">到达目的地</span>
+        <span *ngIf="data?.status==100">货主确认车辆</span>
+        <span *ngIf="data?.status==101">货主确认收货</span>
+        <span *ngIf="data?.status==102">司机确认收货</span>
+        <span *ngIf="data?.status==103">已交货</span>
+        <span *ngIf="data?.status==120">支付中</span>
+        <span *ngIf="data?.status==121">货主装车支付中</span>
+        <span *ngIf="data?.status==123">确认收货支付中</span>
+        <span *ngIf="data?.status==150">完成</span>
+        <span *ngIf="data?.status==151">评价完成</span>
+        <span *ngIf="data?.status==200">货主拒绝装车</span>
+        <span *ngIf="data?.status==210">货主取消</span>
+        <span *ngIf="data?.status==211">司机取消</span>
+        <span *ngIf="data?.status==212">客服取消</span>
+        <span *ngIf="data?.status==213">系统取消</span>
+        <span *ngIf="data?.status==220">协商中</span>
+        <span *ngIf="data?.status==221">客服处理完毕</span>
+        <span *ngIf="data?.status==222">装货异常</span>
+        <span *ngIf="data?.status==230">司机支付失败</span>
+        <span *ngIf="data?.status==232">确认收货支付失败</span>
+        <span *ngIf="data?.status==231">货主装车调整失败</span>
+			</td>
+    </tr>
+    <tr>
+      <td colspan="8">
+        <app-pagination [pageSize]="10" [totalNum]="totalNum" (pageChange)="changePageNum($event)"></app-pagination>
+      </td>
+    </tr>
+  </table>
+</div>
+<div *ngIf="totalNum==0" class="no_data" >暂无相关信息</div>

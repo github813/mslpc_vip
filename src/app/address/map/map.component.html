@@ -1,0 +1,130 @@
+<div class="box">
+  <div class="add_addrecon">
+    <ul>
+      <li><label><a>*</a>{{freightPrice}}单位：</label><input id='company' #company class="form-control"   /></li>
+      <li><label><a>*</a>地址：</label><input  id="address" #address (click)="getaddress()"  readonly={{isSystesm}}  class="form-control"  /></li>
+      <li><label><a>*</a>详细地址：</label><input id='detailAddress' #detailAddress placeholder="例：门牌号" (click)="selectsystem()" class="form-control"   /></li>
+
+
+      <li *ngIf="!orderaddtype">是否设为默认地址：
+        <select  id='isdefalut' class="form-control" #isdefalut>
+          <option value="-1"  disabled>请选择</option>
+          <option value="1">是</option>
+          <option value="0">否</option>
+        </select>
+      </li>
+      <!--<li>是否设为默认：<select open id='subDistricts'></select></li>-->
+    </ul>
+  </div>
+  <div class="add_addrecon" *ngIf="!orderaddtype">
+    <div class="clo-6">
+      <!--<button (click)="addPreson()" class="layui-btn layui-btn-primary" id="addPreson">添加联系人</button><span class="e85529 span">*请务必选择主联系人</span>-->
+      <div class="table_title"><span class="color_red">*</span>联系人信息<a class="floatr addPreson" (click)="addPreson(0)"    >+添加联系人(必填)</a></div>
+      <table class="table table-bordered viptable">
+        <thead>
+        <tr>
+          <!--<th>选择</th>-->
+          <th width="100">姓名</th>
+          <th width="100">电话号</th>
+          <th width="150">是否为主联系人</th>
+          <th width="100">操作</th>
+        </tr>
+        </thead>
+        <tr *ngFor="let data of contactList;let i=index">
+          <!--<td>-->
+          <!--<input name='fruit' type='radio' checked *ngIf="data.main==1"/>-->
+          <!--<input name='fruit' type='radio' *ngIf="data.main==0"/>-->
+          <!--</td>-->
+          <td>{{data?.name}}</td>
+          <td>{{data?.phone}}</td>
+          <td> {{data.main==0?"否":"是"}}</td>
+          <td>
+            <a class="btn btn-link viplink" (click)='delete(i,0)'>删除</a>
+            <a  class="btn btn-link viplink mleft5"  *ngIf="data.main==0"  (click)='setdefault(i)' >设为主联系人</a>
+          </td>
+          <td style="display:none">{{data?.id}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="clo-6"  *ngIf="addretype==2">
+      <div class="table_title">质检员信息<a class="floatr addPreson" (click)="addPreson(3)" >+添加质检人(选填)</a></div>
+      <table   class="table table-bordered viptable">
+        <thead>
+        <tr>
+          <th>姓名</th>
+          <th>电话号</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tr *ngFor="let data of inspectorList;let j=index">
+          <td style="width: 150px;">{{data?.name}}</td>
+          <td style="width: 200px;">{{data?.phone}}</td>
+          <td><a (click)='delete(j,3)'>删除</a></td>
+          <td style="display:none">{{data?.id}}</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+  <div class="mapbtns" style="background: #fff; text-align: left;" >
+    <span class="btn btn-default" (click)='remove()'>取消</span>
+    <span class="btn btn_success" (click)='submitForm()' *ngIf="!orderaddtype">保存</span>
+    <span class="btn btn_success" (click)='orderAddress()' *ngIf="orderaddtype">保存</span>
+  </div>
+
+</div>
+
+
+<!-- 弹框 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" >
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <div class="modal-title" id="myModalLabel">
+          添加联系人
+        </div>
+      </div>
+      <div class="modal-body middleContent">
+        <div class="inputDiv"><label>联系人：</label><input type="text" class="form-control" name="name"></div>
+        <div class="inputDiv mtop10"><label>电话号码：</label><input type="text" class="form-control" name="phone" maxlength="11"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn_success" data-dismiss="modal" aria-hidden="true" (click)="confrimAdd()">确认</button>
+        <!-- <div type="button" class="btn bg-e8 btnStyle" id="removeQr" ></div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 地图弹框-->
+<div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" style="width: 700px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <div class="modal-title" id="myModalLabe2">
+          选择地址
+        </div>
+      </div>
+      <div class="modal-body middleContent">
+        <div class="map_address" >当前选择地址：<span id="mapnowaddre"></span></div>
+        <div id="container" class="map" tabindex="0" style="width:100% ;height: 400px;"></div>
+        <div class="map_region">所在地区：
+          <select open id='subDistricts' class="form-control"></select>
+          <select open id='subCity' class="form-control"></select></div>
+        <div id="tip">
+
+          <input type="text" id="keyword" name="keyword" class="form-control" placeholder="请输入关键字：(选定后搜索)" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn_success" data-dismiss="modal" aria-hidden="true"  (click)="sumbitmap()">确认</button>
+        <!-- <div type="button" class="btn bg-e8 btnStyle" id="removeQr" ></div> -->
+      </div>
+    </div>
+  </div>
+</div>
